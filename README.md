@@ -11,8 +11,9 @@
 5. Redis and CacheManager
 6. Dubbo
 7. feign using ZK
-8. Kakfa
-9. Flink for runtime-stream
+8. ribbon
+9. Kakfa
+10. Flink for runtime-stream
 
 **Done**
 
