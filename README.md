@@ -12,7 +12,7 @@
 6. Dubbo
 7. feign using ZK
 8. ribbon
-9. Kakfa
+9. Kakfa, RocketMQ
 10. Flink for runtime-stream
 
 **Done**
