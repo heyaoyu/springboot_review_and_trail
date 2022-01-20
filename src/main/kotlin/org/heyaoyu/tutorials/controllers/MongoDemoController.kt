@@ -9,6 +9,11 @@ import org.springframework.data.mongodb.core.query.isEqualTo
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
+import kotlin.collections.ArrayList
+
+data class Record(public val uid: Long, public val content: String, public val create_at: Long)
+
+data class Result(public val _id: Map<Any, Any>, public val record: List<Record>, public val count: Long)
 
 @RestController
 @RequestMapping("/mongo")
@@ -31,14 +36,32 @@ class MongoDemoController(private val mongoTemplate: MongoTemplate) {
             .and("record").`as`("record")
             .and("record").size().`as`("count")
         val match2 = Aggregation.match(Criteria.where("count").gt(1))
-        val ret =
+        val result =
             mongoTemplate.aggregate(
                 Aggregation.newAggregation(match1, group, project, match2),
                 collectionName,
-                MutableMap::class.java
+                Result::class.java
             )
-        val groupsOfRecord = ret.mappedResults.map { it.get("record") }
-        return groupsOfRecord
+        val groupsOfRecord = result.mappedResults
+        val ret: List<List<Record>> = ArrayList()
+        groupsOfRecord.forEach {
+            process(it.record).forEach {
+                (ret as ArrayList).add(it)
+            }
+        }
+        return ret
+    }
+
+    private fun process(listOfRecord: List<Record>): List<List<Record>> {
+        val ret: List<List<Record>> = ArrayList()
+        val list = listOfRecord.sortedBy { it.create_at }
+        for (i in 0..list.size - 2) {
+            val j = i + 1
+            if ((1000 >= Math.abs(list[j].create_at - list[i].create_at))) {
+                (ret as ArrayList).add(listOf(list[i], list[j]))
+            }
+        }
+        return ret
     }
 
     @RequestMapping("/findOne")
