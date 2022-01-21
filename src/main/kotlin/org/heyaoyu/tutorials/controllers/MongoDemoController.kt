@@ -24,7 +24,7 @@ class MongoDemoController(private val mongoTemplate: MongoTemplate) {
     @RequestMapping("/demo")
     @ResponseBody
     fun get(): Any {
-        val match1 = Aggregation.match(Criteria.where("status").isEqualTo(1))
+        val match1 = Aggregation.match(Criteria.where("status").`is`(1))
         val group = Aggregation.group("uid", "content")
             .addToSet(
                 BasicDBObject()
