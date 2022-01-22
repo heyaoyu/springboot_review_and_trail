@@ -1,0 +1,13 @@
+# autoconfigure mongo configuration
+spring:
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: test
+
+# custom mongo configuration
+data:
+  mongo:
+    test:
+      uri: mongodb://127.0.0.1:27017/test?readpreference=secondaryPreferred&socketTimeoutMS=2000
