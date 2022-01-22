@@ -14,14 +14,10 @@ class MongoDataConfigruation {
 
     @ConfigurationProperties(prefix = "data.mongo.test")
     @Bean("mongoDataProps")
-    fun getMongoDataProps(): MongoProperties {
-        val ret = MongoProperties()
-        return ret
-    }
+    fun getMongoDataProps(): MongoProperties = MongoProperties()
 
     @Bean("mongoDataFactory")
     fun getMongoFactory(@Qualifier("mongoDataProps") mongoProperties: MongoProperties): MongoDatabaseFactory {
-        println("########${mongoProperties.uri}")
         return SimpleMongoClientDatabaseFactory(mongoProperties.uri)
     }
 
