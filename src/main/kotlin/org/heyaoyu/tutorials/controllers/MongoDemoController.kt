@@ -1,6 +1,7 @@
 package org.heyaoyu.tutorials.controllers
 
 import com.mongodb.BasicDBObject
+import org.heyaoyu.tutorials.utils.ExcelUtil
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation
 import org.springframework.data.mongodb.core.query.Criteria
@@ -71,6 +72,8 @@ class MongoDemoController(private val mongoTemplate: MongoTemplate) {
     @ResponseBody
     fun findOne(): Any {
         val ret = mongoTemplate.findOne(Query().limit(1), MutableMap::class.java, collectionName)
+        val content = listOf<List<String>>(listOf("1", "2"), listOf("3"))
+        ExcelUtil.generateExcel("/tmp/1.XLSX", content)
         return ret?.toMap() ?: "null"
     }
 
