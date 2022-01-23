@@ -11,3 +11,9 @@ data:
   mongo:
     test:
       uri: mongodb://127.0.0.1:27017/test?readpreference=secondaryPreferred&socketTimeoutMS=2000
+  mysql:
+    test:
+      driverClassName: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/demo
+      username: root
+      password:
