@@ -14,8 +14,7 @@ import java.util.*
     exclude = [
         MongoAutoConfiguration::class,
         MongoDataAutoConfiguration::class,
-        DataSourceAutoConfiguration::class,
-        RedisAutoConfiguration::class
+        DataSourceAutoConfiguration::class
     ]
 )
 class DemoApplication
