@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory
 
 @Configuration
-class MongoDataConfigruation {
+class MongoDataConfiguration {
 
     @ConfigurationProperties(prefix = "data.mongo.test")
     @Bean("mongoDataProps")
