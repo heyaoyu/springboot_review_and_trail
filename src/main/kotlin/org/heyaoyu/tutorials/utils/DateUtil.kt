@@ -15,5 +15,10 @@ class DateUtil {
         fun tsToDateStr(ts: Long): String {
             return SDF.format(Date(ts))
         }
+
+        fun getZeroOfToday(): Long {
+            return SDF.parse(SDF.format(Date(System.currentTimeMillis()))).time
+        }
     }
+
 }

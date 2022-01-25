@@ -21,9 +21,5 @@ import java.util.*
 class DemoApplication
 
 fun main() {
-    val SDF = SimpleDateFormat("yyyy-MM-dd")
-    println(DateUtil.dateStrToTs("2021-10-01"))
-    println(SDF.parse(SDF.format(Date(System.currentTimeMillis()))).time)
-    println(DateUtil.tsToDateStr(1635782400000))
     runApplication<DemoApplication>()
 }
