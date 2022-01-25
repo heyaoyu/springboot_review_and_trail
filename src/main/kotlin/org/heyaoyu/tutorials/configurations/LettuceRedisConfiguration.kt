@@ -10,7 +10,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @Configuration
 class LettuceRedisConfiguration {
 
-    @Bean
+    @Bean("redisTemplate")
     fun getRedisTemplate(lettuceConnectionFactory: RedisConnectionFactory): RedisTemplate<Any, Any> {
         val redisTemplate = RedisTemplate<Any, Any>()
         redisTemplate.keySerializer = StringRedisSerializer()

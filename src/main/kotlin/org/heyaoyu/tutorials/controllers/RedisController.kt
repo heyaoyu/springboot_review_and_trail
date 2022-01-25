@@ -12,7 +12,7 @@ class RedisController(val redisTemplate: RedisTemplate<Any, Any>) {
     @RequestMapping("/demo")
     @ResponseBody
     fun findOne(): Any {
-        val redis = redisTemplate.opsForValue().get("key") as Long?
+        val redis = redisTemplate.opsForValue().get("key") as Int?
         val ret = redis ?: 0
         return ret
     }
