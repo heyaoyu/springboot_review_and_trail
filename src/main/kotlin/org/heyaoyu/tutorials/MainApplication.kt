@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
 import org.springframework.boot.runApplication
+import org.springframework.data.redis.connection.RedisConnectionFactory
+import org.springframework.data.redis.core.RedisTemplate
 
 @SpringBootApplication(
     exclude = [
@@ -16,5 +18,11 @@ import org.springframework.boot.runApplication
 class DemoApplication
 
 fun main() {
-    runApplication<DemoApplication>()
+    val appCtx = runApplication<DemoApplication>()
+    appCtx.getBeansOfType(RedisTemplate::class.java).forEach {
+        println(it)
+    }
+    appCtx.getBeansOfType(RedisConnectionFactory::class.java).forEach {
+        println(it)
+    }
 }
