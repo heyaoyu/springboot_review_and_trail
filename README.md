@@ -10,10 +10,13 @@
 4. Mysql using Jooq
 5. Redis and CacheManager
 6. Dubbo
-7. feign using ZK
-8. ribbon
+7. Feign using ZK
+8. Ribbon
 9. Kakfa, RocketMQ
 10. Flink for runtime-stream
+11. Annotation using ApplicationCtx
+12. Interceptor
+13. Actuator
 
 **Done**
 
