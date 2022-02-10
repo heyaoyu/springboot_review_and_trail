@@ -1,5 +1,9 @@
-# autoconfigure mongo configuration
 spring:
+  application:
+    name: spring-cloud-service-provider
+  cloud:
+    zookeeper:
+      connect-string: localhost:2181
   data:
     mongodb:
       host: 127.0.0.1

@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
 import org.springframework.boot.runApplication
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient
+import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 
@@ -15,6 +17,10 @@ import org.springframework.data.redis.core.RedisTemplate
         DataSourceAutoConfiguration::class
     ]
 )
+// 发布或消费注册
+@EnableDiscoveryClient
+// 消费者only
+@EnableFeignClients
 class DemoApplication
 
 fun main() {
