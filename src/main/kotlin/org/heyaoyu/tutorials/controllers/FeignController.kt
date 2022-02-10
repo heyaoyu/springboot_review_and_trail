@@ -15,4 +15,10 @@ class FeignController(val feignService: FeignService) {
         return feignService.feignTest()
     }
 
+    @RequestMapping("/feignCalled")
+    @ResponseBody
+    fun feignCalled(): Any {
+        throw Exception("Excep")
+    }
+
 }
