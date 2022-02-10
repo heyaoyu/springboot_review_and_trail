@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 import kotlin.collections.ArrayList
 
-data class Record(public val uid: Long, public val content: String, public val create_at: Long)
+data class Record(val uid: Long, val content: String, val create_at: Long)
 
-data class Result(public val _id: Map<Any, Any>, public val record: List<Record>, public val count: Long)
+data class Result(val record: List<Record>, val count: Long)
 
 @RestController
 @RequestMapping("/mongo")
