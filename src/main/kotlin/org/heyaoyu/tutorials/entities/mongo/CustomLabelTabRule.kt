@@ -1,5 +1,6 @@
 package org.heyaoyu.tutorials.entities.mongo
 
+import org.bson.types.ObjectId
 import org.springframework.data.mongodb.core.mapping.Document
 
 data class Keyword(val content: String, val operator: String, val ts: Long)
@@ -8,6 +9,7 @@ data class UserId(val content: String, val operator: String, val ts: Long)
 
 @Document(collection = "rules")
 data class CustomLabelTabRule(
+    val id: ObjectId?,
     val labelScope: String,
     val keywords: List<Keyword>,
     val postType: String,

@@ -23,8 +23,9 @@ class MongoRuleController(val mongoTemplate: MongoTemplate) {
         val userIds = listOf(
             UserId("uid1", "operator1", System.currentTimeMillis())
         )
-        val rule = CustomLabelTabRule("1,2", keywords, "1,3,5", "1,3", 3.5, userIds)
+        val rule = CustomLabelTabRule(null, "1,2", keywords, "1,3,5", "1,3", 3.5, userIds)
         mongoTemplate.save(rule)
+        println(rule.id)
         return "success"
     }
 
@@ -32,7 +33,7 @@ class MongoRuleController(val mongoTemplate: MongoTemplate) {
     @ResponseBody
     fun findOne(): Any {
         val rule = mongoTemplate.findOne(Query().limit(1), CustomLabelTabRule::class.java)
-        println(rule)
+        println(rule?.id)
         return "success"
     }
 }
