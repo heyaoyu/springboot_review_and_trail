@@ -20,11 +20,11 @@ data class LabelTabConfiguration(val labelId: String, var labelTabConfigs: List<
     companion object {
         fun defaultConfiguration(): List<LabelTabConfig> {
             return listOf(
-                LabelTabConfig("推荐", "推荐", 1, 2, 1, "", -1, -1, -1),
-                LabelTabConfig("最热", "最热", 2, 2, 1, "", -1, -1, -1),
-                LabelTabConfig("最新", "最新", 3, 2, 1, "", -1, -1, -1),
-                LabelTabConfig("精选", "精选", 4, 2, 1, "", -1, -1, -1),
-                LabelTabConfig("作者大大", "作者大大", 5, 2, 1, "", -1, -1, -1)
+                LabelTabConfig("推荐", "推荐", 1, 2, 1, "", -1, -1, null),
+                LabelTabConfig("最热", "最热", 2, 2, 1, "", -1, -1, null),
+                LabelTabConfig("最新", "最新", 3, 2, 1, "", -1, -1, null),
+                LabelTabConfig("精选", "精选", 4, 2, 1, "", -1, -1, null),
+                LabelTabConfig("作者大大", "作者大大", 5, 2, 1, "", -1, -1, null)
             )
 
         }
