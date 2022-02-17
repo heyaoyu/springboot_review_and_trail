@@ -193,6 +193,50 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
         @RequestBody rule: CustomLabelTabRule
     ): Any? {
         mongoTemplate.save(rule)
+        val config = mongoTemplate.findOne(Query(Criteria.where("labelId").`is`(labelId)), LabelTabConfiguration::class.java)
+        val count = config.labelTabConfigs.count { it.type == "自定义" }
+        if (config?.labelTabConfigs?.isEmpty() == false) {
+            val newList = ArrayList<LabelTabConfig>()
+            newList.addAll(config.labelTabConfigs)
+            newList.add(
+                LabelTabConfig(
+                    "自定义",
+                    name,
+                    6 + count,
+                    showType,
+                    0,
+                    operator,
+                    System.currentTimeMillis(),
+                    sortType,
+                    rule.id
+                )
+            )
+            config.labelTabConfigs = newList
+            mongoTemplate.updateFirst(
+                Query(Criteria.where("labelId").`is`(labelId)),
+                Update().set("labelId", labelId).set("labelTabConfigs", config.labelTabConfigs),
+                LabelTabConfiguration::class.java
+            )
+            return "Ok"
+        } else {
+            val newConfig = LabelTabConfiguration(
+                labelId,
+                listOf(
+                    LabelTabConfig(
+                        "自定义",
+                        name,
+                        6 + count,
+                        showType,
+                        0,
+                        operator,
+                        System.currentTimeMillis(),
+                        sortType,
+                        rule.id
+                    )
+                )
+            )
+            mongoTemplate.save(newConfig)
+        }
         return "Ok"
     }
 
