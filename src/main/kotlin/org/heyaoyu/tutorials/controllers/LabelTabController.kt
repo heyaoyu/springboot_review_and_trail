@@ -194,7 +194,7 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
     ): Any? {
         mongoTemplate.save(rule)
         val config = mongoTemplate.findOne(Query(Criteria.where("labelId").`is`(labelId)), LabelTabConfiguration::class.java)
-        val count = config.labelTabConfigs.count { it.type == "自定义" }
+        val count = config?.labelTabConfigs?.count { it.type == "自定义" } ?: 0
         if (config?.labelTabConfigs?.isEmpty() == false) {
             val newList = ArrayList<LabelTabConfig>()
             newList.addAll(config.labelTabConfigs)
