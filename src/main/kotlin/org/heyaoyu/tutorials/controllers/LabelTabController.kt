@@ -118,71 +118,7 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
         }
     }
 
-    @RequestMapping("/modifyCustomTab")
-    @ResponseBody
-    fun modifyCustomTab(
-        @RequestParam("labelId") labelId: String,
-        @RequestParam("srcName") srcName: String,
-        @RequestParam("targetName") targetName: String,
-        @RequestParam("seq") seq: Int,
-        @RequestParam("showType") showType: Int,
-        @RequestParam("operator") operator: String
-    ): Any? {
-        val config = mongoTemplate.findOne(
-            Query(
-                Criteria.where("labelId").`is`(labelId)
-            ), LabelTabConfiguration::class.java
-        )
-        if (config?.labelTabConfigs?.isEmpty() == false) {
-            val tabConfig = config.labelTabConfigs.find { it.type == "自定义" && it.name == srcName }
-            if (tabConfig != null) {
-                tabConfig.name = targetName
-                tabConfig.seq = seq
-                tabConfig.showType = showType
-                tabConfig.operator = operator
-                tabConfig.ts = System.currentTimeMillis()
-                mongoTemplate.updateFirst(
-                    Query(Criteria.where("labelId").`is`(labelId)),
-                    Update().set("labelId", labelId).set("labelTabConfigs", config.labelTabConfigs),
-                    LabelTabConfiguration::class.java
-                )
-                return "Ok"
-            }
-        }
-        return "Ok"
-    }
-
-    @RequestMapping("/modifyCustomTabStatus")
-    @ResponseBody
-    fun modifyCustomTabStatus(
-        @RequestParam("labelId") labelId: String,
-        @RequestParam("srcName") srcName: String,
-        @RequestParam("status") status: Int,
-        @RequestParam("operator") operator: String
-    ): Any? {
-        val config = mongoTemplate.findOne(
-            Query(
-                Criteria.where("labelId").`is`(labelId)
-            ), LabelTabConfiguration::class.java
-        )
-        if (config?.labelTabConfigs?.isEmpty() == false) {
-            val tabConfig = config.labelTabConfigs.find { it.type == "自定义" && it.name == srcName }
-            if (tabConfig != null) {
-                tabConfig.status = status
-                tabConfig.operator = operator
-                tabConfig.ts = System.currentTimeMillis()
-                mongoTemplate.updateFirst(
-                    Query(Criteria.where("labelId").`is`(labelId)),
-                    Update().set("labelId", labelId).set("labelTabConfigs", config.labelTabConfigs),
-                    LabelTabConfiguration::class.java
-                )
-                return "Ok"
-            }
-        }
-        return "Ok"
-    }
-
-    @RequestMapping("/addCustomTabAndRule")
+    @PostMapping("/addCustomTabAndRule")
     @ResponseBody
     fun addCustomTabAndRule(
         @RequestParam("labelId") labelId: String,
@@ -240,7 +176,73 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
         return "Ok"
     }
 
-    @RequestMapping("/modifyCustomTabRule")
+    @RequestMapping("/modifyCustomTab")
+    @ResponseBody
+    fun modifyCustomTab(
+        @RequestParam("labelId") labelId: String,
+        @RequestParam("srcName") srcName: String,
+        @RequestParam("targetName") targetName: String,
+        @RequestParam("seq") seq: Int,
+        @RequestParam("showType") showType: Int,
+        @RequestParam("sortType") sortType: Int,
+        @RequestParam("operator") operator: String
+    ): Any? {
+        val config = mongoTemplate.findOne(
+            Query(
+                Criteria.where("labelId").`is`(labelId)
+            ), LabelTabConfiguration::class.java
+        )
+        if (config?.labelTabConfigs?.isEmpty() == false) {
+            val tabConfig = config.labelTabConfigs.find { it.type == "自定义" && it.name == srcName }
+            if (tabConfig != null) {
+                tabConfig.name = targetName
+                tabConfig.seq = seq
+                tabConfig.showType = showType
+                tabConfig.sortType = sortType
+                tabConfig.operator = operator
+                tabConfig.ts = System.currentTimeMillis()
+                mongoTemplate.updateFirst(
+                    Query(Criteria.where("labelId").`is`(labelId)),
+                    Update().set("labelId", labelId).set("labelTabConfigs", config.labelTabConfigs),
+                    LabelTabConfiguration::class.java
+                )
+                return "Ok"
+            }
+        }
+        return "Ok"
+    }
+
+    @RequestMapping("/modifyCustomTabStatus")
+    @ResponseBody
+    fun modifyCustomTabStatus(
+        @RequestParam("labelId") labelId: String,
+        @RequestParam("srcName") srcName: String,
+        @RequestParam("status") status: Int,
+        @RequestParam("operator") operator: String
+    ): Any? {
+        val config = mongoTemplate.findOne(
+            Query(
+                Criteria.where("labelId").`is`(labelId)
+            ), LabelTabConfiguration::class.java
+        )
+        if (config?.labelTabConfigs?.isEmpty() == false) {
+            val tabConfig = config.labelTabConfigs.find { it.type == "自定义" && it.name == srcName }
+            if (tabConfig != null) {
+                tabConfig.status = status
+                tabConfig.operator = operator
+                tabConfig.ts = System.currentTimeMillis()
+                mongoTemplate.updateFirst(
+                    Query(Criteria.where("labelId").`is`(labelId)),
+                    Update().set("labelId", labelId).set("labelTabConfigs", config.labelTabConfigs),
+                    LabelTabConfiguration::class.java
+                )
+                return "Ok"
+            }
+        }
+        return "Ok"
+    }
+
+    @PostMapping("/modifyCustomTabRule")
     @ResponseBody
     fun modifyCustomTabAndRule(
         @RequestParam("labelId") labelId: String,
