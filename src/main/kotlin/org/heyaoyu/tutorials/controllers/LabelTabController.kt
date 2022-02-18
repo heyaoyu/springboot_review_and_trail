@@ -19,10 +19,6 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
         return defaultMap.plus(configMap).values.sortedWith(compareBy<LabelTabConfig> { it.seq }.thenByDescending { it.ts })
     }
 
-    private fun getDefaultLabelTabConfigMap(): Map<String, LabelTabConfig> {
-        return LabelTabConfiguration.defaultConfiguration().associateBy { it.type }
-    }
-
     @RequestMapping("/tabConfigs")
     @ResponseBody
     fun tabConfigs(@RequestParam("labelId") labelId: String): Any? {
@@ -72,6 +68,10 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
             mongoTemplate.save(newConfig)
             return "Ok"
         }
+    }
+
+    private fun getDefaultLabelTabConfigMap(): Map<String, LabelTabConfig> {
+        return LabelTabConfiguration.defaultConfiguration().associateBy { it.type }
     }
 
     @RequestMapping("/modifyCommonTabStatus")
