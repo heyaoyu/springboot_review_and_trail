@@ -16,7 +16,7 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
     private fun mergeLabelTabConfig(config: LabelTabConfiguration): List<LabelTabConfig> {
         val defaultMap = LabelTabConfiguration.defaultConfiguration().associateBy { it.type }
         val configMap = config.labelTabConfigs.associateBy { it.type }
-        return defaultMap.plus(configMap).values.sortedBy { it.seq }
+        return defaultMap.plus(configMap).values.sortedWith(compareBy<LabelTabConfig> { it.seq }.thenByDescending { it.ts })
     }
 
     private fun getDefaultLabelTabConfigMap(): Map<String, LabelTabConfig> {
@@ -173,6 +173,7 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
             )
             mongoTemplate.save(newConfig)
         }
+        //Todo refresh pool and auto close
         return "Ok"
     }
 
@@ -273,6 +274,7 @@ class LabelTabController(val mongoTemplate: MongoTemplate) {
                 )
             }
         }
+        //Todo refresh pool and auto close
         return "Ok"
     }
 }
